@@ -1,0 +1,22 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Nexora Ledger</title>
+<style>body{font-family:-apple-system,Segoe UI,Arial,sans-serif;max-width:520px;margin:48px auto;padding:0 20px;line-height:1.7;color:#0b1b33;text-align:center}a.btn{display:block;background:#0b1b33;color:#fff;text-decoration:none;padding:14px;border-radius:12px;margin:24px 0;font-weight:700}.en{direction:ltr;color:#55606e}</style></head><body>
+<h1>قبول الدعوة</h1>
+<p>اضغط الزر لفتح تطبيق Nexora Ledger واختيار كلمة المرور.</p>
+<p class="en">Tap the button to open Nexora Ledger and choose your password.</p>
+<a class="btn" id="open" href="#">افتح التطبيق · Open the app</a>
+<p id="bad" hidden>الرابط غير صالح. اطلب دعوة جديدة.<br><span class="en">This link is not valid. Ask for a new invitation.</span></p>
+<script>
+// Opening this page uses nothing up: the one-time token is spent only when the app verifies it,
+// so a mail scanner that fetches the link can't break the invitation.
+var q = new URLSearchParams(location.search);
+var hash = q.get('token_hash') || '';
+if (/^[A-Za-z0-9_-]{20,200}$/.test(hash)) {
+  var url = 'nexora-ledger://callback?token_hash=' + encodeURIComponent(hash) + '&type=invite';
+  document.getElementById('open').href = url;
+  location.href = url;
+} else {
+  document.getElementById('open').hidden = true;
+  document.getElementById('bad').hidden = false;
+}
+</script>
+</body></html>
